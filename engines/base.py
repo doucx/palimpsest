@@ -17,6 +17,7 @@ class SearchHit:
     highlighted_snippet: str = ""
     sub_scores: dict[str, float] = field(default_factory=dict)
     extra_meta: dict[str, Any] = field(default_factory=dict)
+    debug_info: dict[str, Any] = field(default_factory=dict)
 
 
 class BaseSearchEngine(ABC):
@@ -25,7 +26,7 @@ class BaseSearchEngine(ABC):
     @property
     @abstractmethod
     def name(self) -> str:
-        """返回引擎唯一代号，如 'baseline_sqlite_fts', 'tantivy_bm25'"""
+        """返回引擎唯一代号，如 'baseline', 'tantivy_raw'"""
         pass
 
     @abstractmethod
@@ -47,3 +48,7 @@ class BaseSearchEngine(ABC):
     def get_index_size_mb(self) -> float:
         """获取当前引擎物理索引文件占用的磁盘大小 (MB)"""
         pass
+
+    def explain_query(self, query: str) -> dict[str, Any]:
+        """白盒诊断支持：返回该引擎对输入查询的解析与中间态 AST（默认返回空）"""
+        return {"query": query}
