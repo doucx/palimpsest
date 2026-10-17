@@ -13,6 +13,9 @@ coverage
 ai_analysis_prompt.md
 formsight_data_*.json
 
+data/*
+!data/.gitkeep
+
 # Logs
 logs
 *.log
