@@ -15,6 +15,7 @@ formsight_data_*.json
 
 data/*
 !data/.gitkeep
+benchmarks/queries.jsonl
 
 # Logs
 logs
